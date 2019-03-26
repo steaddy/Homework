@@ -118,3 +118,5 @@ xhr.ontimeout = function() {
 };
 
 xhr.send();
+
+//Not finished Homework
