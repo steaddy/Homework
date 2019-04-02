@@ -15,6 +15,18 @@
     <div class="container">
         <div class="goods"></div>
     </div>
+    <div class="container">
+        <div id="phones"></div>
+    </div>
+    <div class="container">
+        <div id="app">
+            <input type="text" v-model="name1">
+            <h1 v-if ="name1.length != 0">Hi, {{upperCaseName}}</h1>
+            <ul>
+                <li v-for="name in names" @click="clickHandler">{{name}}</li>
+            </ul>
+        </div>
+    </div>
 </main>
 
 <script src="js/script.js"></script>
