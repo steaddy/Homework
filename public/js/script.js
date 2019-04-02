@@ -1,42 +1,4 @@
-/*
- const listItems = [
- {name: 'dress', price: 100},
- {name: 'pants', price: 120},
- {name: 'shoes', price: 200},
- {name: 'hat', price: 70},
- ];
-
- const itemHTML = function ({name, price, imgURL = 'img/noImg.png'}) {
- return `<div class='item'><h3>${name}</h3><span>${price}</span><br><img src="${imgURL}" alt="Our Item"></div>`;
- };
-
- document.querySelector('.goods').innerHTML = listItems.map(itemHTML).join('');
- */
-
-
-// Lesson 2
-
-/*
-
-
- let Container = function (tagName, className = '', idName = '') {
- this.tag = tagName;
- this.class = className;
- this.id = idName;
-
- };
-
- Container.prototype.render = function () {
- return `<${this.tagName} class="${this.className}" id="${this.idName}">
- Hi!</${this.tagName}>`;
- };
-
-
- let obj = new Container('div', 'myClass');
- document.querySelector('.goods').innerHTML = obj.render();
-
- */
-
+const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 class Item {
     constructor(name, price, imgURL = 'img/noImg.png', className = 'item') {
@@ -58,63 +20,92 @@ class ItemList {
     }
 
     fetchItems() {
-        this.items = [
-            {name: 'dress', price: 100},
-            {name: 'pants', price: 120},
-            {name: 'shoes', price: 200},
-            {name: 'hat', price: 70},
-            {name: 'sweatshirt', price: 300},
-        ];
+        return new Promise((resolve, reject) => {
+            sendRequest(`${API_URL}/catalogData.json`).then(answer => {
+                this.items = answer;
+                resolve();
+            });
+        });
     }
 
     render() {
         let listHtml = '';
-        let total = 0;
         this.items.forEach(item => {
-            const newItem = new Item(item.name, item.price);
+            const newItem = new Item(item.product_name, item.price);
             listHtml += newItem.render();
-            total += item.price;
         });
-        this.total = total;
         document.querySelector('.goods').innerHTML = listHtml;
     }
 
-    totalRender() {
-        let el = document.createElement('div');
-        el.innerHTML = `<div>(This will be rendered into the cart) <span style="font-weight: bold">Total: ${this.total} rub</span></div>`;
-        document.querySelector('.headerStyle').appendChild(el);
-    }
 }
+/*
 
 let itemList = new ItemList;
+itemList.fetchItems().then(() => {
+    itemList.render();
+});
+*/
 
-itemList.fetchItems();
-itemList.render();
-itemList.totalRender();
 
-
-// Lesson 3
-
-let xhr;
-
-if(window.XMLHttpRequest) {
-    xhr = new XMLHttpRequest();
-} else if(window.ActiveXObject) {
-    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+function sendRequest(url) {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.send();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                resolve(JSON.parse(xhr.responseText));
+            }
+        }
+    })
 }
 
-xhr.onreadystatechange = function() {
-    if(xhr.readyState === XMLHttpRequest.DONE) {
 
+let butt = document.querySelector('.cartButton');
+butt.addEventListener('click', () => {
+    sendRequest(`${API_URL}/catalogData.json`).then((phones) => {
+        let phonesString = phones.map(item => `<li>${item.name}: ${item.number}</li>`).join('');
+        document.getElementById('phones').innerHTML = "<ul>" + phonesString + "</ul>";
+    }/*, onRejected => console.log(onRejected)   */)
+})
+
+
+
+
+
+
+// Lesson 5
+
+let app = new Vue({
+    el: '#app',
+    data: {
+        goods: [],
+        filteredGoods: [],
+        searchLine: '',
+    },
+    methods: {
+
+        sendRequest(url) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.send();
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        resolve(JSON.parse(xhr.responseText));
+                    }
+                }
+            })
+        }
+
+
+    },
+
+    mounted() {
+        sendRequest(`${API_URL}/catalogData.json`).then(answer =>{
+            this.goods = answer;
+            this.filteredGoods = answer;
+        });
     }
-};
+});
 
-xhr.open('GET', 'http://localhost:3000/', true);
-
-xhr.timeout = 15000;
-
-xhr.ontimeout = function() {
-
-};
-
-xhr.send();
