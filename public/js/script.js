@@ -1,4 +1,3 @@
-
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 class Item {
@@ -21,7 +20,7 @@ class ItemList {
     }
 
     fetchItems() {
-        return new Promise ((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             sendRequest(`${API_URL}/catalogData.json`).then(answer => {
                 this.items = answer;
                 resolve();
@@ -39,14 +38,13 @@ class ItemList {
     }
 
 }
+/*
 
 let itemList = new ItemList;
-
 itemList.fetchItems().then(() => {
     itemList.render();
 });
-
-
+*/
 
 
 function sendRequest(url) {
@@ -61,7 +59,6 @@ function sendRequest(url) {
         }
     })
 }
-/*
 
 
 let butt = document.querySelector('.cartButton');
@@ -69,26 +66,46 @@ butt.addEventListener('click', () => {
     sendRequest(`${API_URL}/catalogData.json`).then((phones) => {
         let phonesString = phones.map(item => `<li>${item.name}: ${item.number}</li>`).join('');
         document.getElementById('phones').innerHTML = "<ul>" + phonesString + "</ul>";
-    }/!*, onRejected => console.log(onRejected)   *!/)
+    }/*, onRejected => console.log(onRejected)   */)
 })
 
 
-let obj = new Vue({
+
+
+
+
+// Lesson 5
+
+let app = new Vue({
     el: '#app',
     data: {
-        names: ['Geek', 'Bud', 'Hobo', 'The Guy'],
-        name1: 'Peter'
+        goods: [],
+        filteredGoods: [],
+        searchLine: '',
     },
     methods: {
-        clickHandler() {
-            console.log('click');
+
+        sendRequest(url) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.send();
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        resolve(JSON.parse(xhr.responseText));
+                    }
+                }
+            })
         }
+
+
     },
-    computed: {
-        upperCaseName() {
-            return this.name1.toUpperCase();
-        }
-    },
+
+    mounted() {
+        sendRequest(`${API_URL}/catalogData.json`).then(answer =>{
+            this.goods = answer;
+            this.filteredGoods = answer;
+        });
+    }
 });
 
-*/

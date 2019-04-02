@@ -1,0 +1,7 @@
+{
+  "users": [
+    {"id": 1, "name": "Kolya", "phoneNumber": "84954875190"},
+    {"id": 1, "name": "Stepan", "phoneNumber": "84954875192"},
+    {"id": 1, "name": "Vova", "phoneNumber": "84954875199"}
+  ]
+}
