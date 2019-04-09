@@ -1,7 +1,22 @@
 {
   "users": [
-    {"id": 1, "name": "Kolya", "phoneNumber": "84954875190"},
-    {"id": 1, "name": "Stepan", "phoneNumber": "84954875192"},
-    {"id": 1, "name": "Vova", "phoneNumber": "84954875199"}
+    {
+      "name": "Pete",
+      "phoneNumber": "1234567",
+      "id": 1
+    },
+    {
+      "name": "Fill",
+      "phoneNumber": "8888338747",
+      "id": 2
+    }
+  ],
+
+  "cart": [],
+
+  "products": [
+    {"id": 1, "name": "T-short", "price": 250},
+    {"id": 2, "name": "Skirt", "price": 400},
+    {"id": 3, "name": "Shoes", "price": 1500}
   ]
 }
