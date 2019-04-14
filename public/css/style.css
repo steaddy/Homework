@@ -1,5 +1,7 @@
 
+#app {
 
+}
 
 .header {
     width: 100%;
@@ -26,16 +28,22 @@
 .item {
     border: 1px solid darkgray;
     width: 150px;
-    height: 200px;
+    height: 250px;
     margin: 20px;
     text-align: center;
     background-color: white;
 }
 
+.item span {
+    font-weight: bold;
+    color: firebrick;
+}
+
 .goods {
     width: 100%;
-   display: flex;
+    display: flex;
     justify-content: center;
+
 }
 
 .item h3 {
@@ -59,9 +67,42 @@
 .cartButton:hover {
     background-color: crimson;
 }
+
 .cartButton:focus {
     outline: none;
 }
+
 .cartButton:active {
     color: white;
+}
+
+.buy {
+    margin-top: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    background-color: green;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: bisque;
+    border-color: transparent;
+}
+
+.buy:active {
+    box-shadow: inset 1px 1px 10px -1px;
+}
+
+.buy:hover {
+    background-color: darkgreen;
+    transition: 0.2s;
+}
+
+.buy:focus {
+    outline: none;
+}
+
+.total {
+    margin: 25px;
+    font-weight: bold;
 }
