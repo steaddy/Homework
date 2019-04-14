@@ -9,7 +9,7 @@
 <div id="app">
     <header class="header">
         <div class="container headerStyle">
-            <button @click="show" class="cartButton">Корзина</button>
+            <button class="cartButton">Корзина</button>
         </div>
     </header>
     <main>
@@ -19,7 +19,7 @@
         </div>
         <div class="container">
             <products @handlebuyclick="handlebuyclick" :searchquery="searchquery"></products>
-            <cart :cart="cart" @ondelete="handleDeleteClick"></cart>
+            <cart style="width:200px" :cart="cart" @ondelete="handleDeleteClick"></cart>
         </div>
     </main>
 </div>
