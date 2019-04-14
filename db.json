@@ -11,12 +11,41 @@
       "id": 2
     }
   ],
-
-  "cart": [],
-
+  "cart": [
+    {
+      "id": 3,
+      "name": "Shoes",
+      "price": 1500,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "name": "Skirt",
+      "price": 400,
+      "quantity": 1
+    },
+    {
+      "id": 1,
+      "name": "T-short",
+      "price": 250,
+      "quantity": 1
+    }
+  ],
   "products": [
-    {"id": 1, "name": "T-short", "price": 250},
-    {"id": 2, "name": "Skirt", "price": 400},
-    {"id": 3, "name": "Shoes", "price": 1500}
+    {
+      "id": 1,
+      "name": "T-short",
+      "price": 250
+    },
+    {
+      "id": 2,
+      "name": "Skirt",
+      "price": 400
+    },
+    {
+      "id": 3,
+      "name": "Shoes",
+      "price": 1500
+    }
   ]
 }
