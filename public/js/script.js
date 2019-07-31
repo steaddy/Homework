@@ -93,28 +93,47 @@ itemList.render();
 itemList.totalRender();
 
 
-// Lesson 3
 
-let xhr;
 
-if(window.XMLHttpRequest) {
-    xhr = new XMLHttpRequest();
-} else if(window.ActiveXObject) {
-    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Lesson 3 Homework
+
+function sendRequest(url) {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.send();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                resolve(JSON.parse(xhr.responseText));
+            } /*else {
+                reject('Error!')
+            }    Без этого работает. Если добавляю else - передает в then ошибку. Как он вообще в else заходит???
+            */
+        }
+    })
 }
 
-xhr.onreadystatechange = function() {
-    if(xhr.readyState === XMLHttpRequest.DONE) {
 
-    }
-};
-
-xhr.open('GET', 'http://localhost:3000/', true);
-
-xhr.timeout = 15000;
-
-xhr.ontimeout = function() {
-
-};
-
-xhr.send();
+let butt = document.querySelector('.cartButton');
+butt.addEventListener('click', () => {
+    sendRequest('http://localhost:3000/phones.json').then( (phones) => {
+        let phonesString = phones.map(item => `<li>${item.name}: ${item.number}</li>`).join('');
+        document.getElementById('phones').innerHTML = "<ul>" + phonesString + "</ul>";
+    }/*, onRejected => console.log(onRejected)   */)
+})
